@@ -1,13 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthoProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
 
 
 
 
 export default function Login() {
   const {checkLogin} = useContext(AuthContext);
+  const [passShowHide, setPassShowHide] = useState(true);
+  const navigate = useNavigate();
 
     const handleFormSubmit =(e)=>{
         e.preventDefault();
@@ -16,7 +19,7 @@ export default function Login() {
         console.log(email, password);
         checkLogin(email, password)
         .then(()=>{
-          console.log("success")
+          navigate('/');
         })
         .catch(err=>{
           console.log(err.message);
@@ -55,7 +58,10 @@ export default function Login() {
                   />
                 </div>
               </div>
-  
+
+              
+
+
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
@@ -67,15 +73,28 @@ export default function Login() {
                     </a>
                   </div>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 flex items-center">
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={passShowHide ? "password" : "text"}
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                   />
+                  <div style={{marginLeft: "-30px", cursor: "pointer"}}>
+                  {
+                    passShowHide ? 
+                    <div onClick={()=>setPassShowHide(!passShowHide)}>
+                      <FaRegEye className="text-xl"></FaRegEye>
+                    </div>
+                    :
+                    <div onClick={()=>setPassShowHide(!passShowHide)}>
+                      <FaEyeSlash className="text-xl"></FaEyeSlash >
+                    </div>
+                  }
+                  </div>
+                  
                 </div>
               </div>
   
@@ -96,7 +115,7 @@ export default function Login() {
             <p className="mt-10 text-center text-sm/6 text-gray-500">
               Not a member?{' '}
               <Link to='/register' className="font-semibold text-indigo-600 hover:text-indigo-500">
-                Start a 14 day free trial
+                Register Now !
               </Link>
             </p>
           </div>

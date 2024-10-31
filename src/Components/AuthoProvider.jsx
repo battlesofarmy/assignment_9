@@ -9,15 +9,19 @@ export const AuthContext = createContext(null);
 
 export default function AuthoProvider({children}) {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
 
 
     const googleProvidar = new GoogleAuthProvider();
     const githubProvidar = new GithubAuthProvider();
 
     const googleRegister = ()=>{
+        setLoading(true);
        return signInWithPopup(auth, googleProvidar)
     }
     const githubRegister =()=>{
+      setLoading(true);
         return signInWithPopup(auth, githubProvidar)
     }
   
@@ -28,6 +32,8 @@ export default function AuthoProvider({children}) {
 
 
     const createUser = (email, password, name, imgURL) => {
+      setLoading(true);
+
         return createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -43,14 +49,18 @@ export default function AuthoProvider({children}) {
 
 
     const checkLogin =(email, password)=>{
+      setLoading(true);
+
         return signInWithEmailAndPassword(auth, email, password);
     }
     
     const logOut = ()=>{
-        // setLoading(true);
+        setLoading(true);
         return signOut(auth);
     }
     const updateUserProfile =(name)=>{
+      setLoading(true);
+
         updateProfile(auth.currentUser,{
             displayName: name
         } )
@@ -62,7 +72,7 @@ export default function AuthoProvider({children}) {
         useEffect(()=>{
             const unSubscribe = onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser);
-            // setLoading(false);
+            setLoading(false);
             console.log("obsurb: ", currentUser);
             });
 
@@ -73,7 +83,7 @@ export default function AuthoProvider({children}) {
         },[])
 
 
-    const authInfo = {user, createUser, checkLogin, googleRegister, githubRegister, logOut, updateUserProfile};
+    const authInfo = {user, createUser, checkLogin, googleRegister, githubRegister, logOut, updateUserProfile, loading};
     
   return (
     <AuthContext.Provider value={authInfo}>

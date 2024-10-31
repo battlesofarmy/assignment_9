@@ -7,8 +7,6 @@ import { AuthContext } from '../AuthoProvider';
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Update Profile', href: '/updateprofile', current: true },
-  { name: 'Login', href: '/login', current: false },
-  { name: 'Register', href: '/register', current: false },
 ];
 
 function classNames(...classes) {
@@ -79,13 +77,20 @@ export default function Navbar() {
                     ))}
 
                     {/* user prifile  */}{
-                      user &&
-                      <div data-tip={user.displayName} className='tooltip tooltip-bottom'> 
-                         <img style={{height: '50px', width: '50px'}} src={user.photoURL} />
-                      </div>
+                      user ?
+                      <>
+                        <div data-tip={user.displayName} className='tooltip tooltip-bottom'> 
+                          <img style={{height: '50px', width: '50px'}} src={user.photoURL} />
+                        </div>
+                        <div onClick={handleLogOut} style={{cursor: "pointer"}} className='text-white'> Logout </div>
+                      </>
+                      :
+                        <div onClick={handleLogOut} className='text-white'>
+                          <NavLink to='/login'>Login</NavLink>
+                        </div>
                     }
 
-                    <div onClick={handleLogOut} className='text-white'>Logout</div>
+                    
                     
                     {/* <NavLink key="fasd" to='/' className='userimg text-white hover:bg-gray-700 hover:text-white rounded-lg'>
                       <img style={{height: '50px', width: '50px'}} src="https://lh3.googleusercontent.com/a/ACg8ocJNpEWJ_dNWW7o4qILpFBQUPXNgg02YM_o9bPeof0dNHhBWOd9v=s96-c" alt="phonto img" />
