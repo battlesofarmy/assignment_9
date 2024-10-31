@@ -2,6 +2,8 @@ import { FaGoogle } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../AuthoProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -10,22 +12,26 @@ export default function GoogleGithubAuth() {
 
     const handleGoogleRegister = ()=>{
         googleRegister()
-        .then(res=>{
+        .then((res)=>{
           const user = res.user;
           console.log(user)
+          toast("Successfully Login");
         })
         .catch(error=>{
-          console.log("my Error: ", error.message);
+          // console.log("my Error: ", error.message);
+          toast(error.message)
         })
       }
   
       const handleGithubRegister=()=>{
         githubRegister()
         .then(()=>{
-          console.log("hi")
+          // console.log(user)
+          toast("Successfully Login");
         })
-        .catch(err=>{
-          console.log(err.message)
+        .catch(error=>{
+          // console.log("my Error: ", error.message);
+          toast(error.message)
         })
       }
 
@@ -38,6 +44,7 @@ export default function GoogleGithubAuth() {
         <button onClick={handleGithubRegister} className="p-3 mr-3 bg-gray-200 text-2xl">
             <FaGithub/>
         </button>
+        <ToastContainer></ToastContainer>
 
     </>
   )

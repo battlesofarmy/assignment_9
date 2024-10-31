@@ -6,18 +6,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+import { updateProfile } from "firebase/auth";
 
 
 
 export default function Register() {
-    const {createUser} = useContext(AuthContext);
+    const {createUser, updateUserProfile} = useContext(AuthContext);
     const [passShowHide, setPassShowHide] = useState(true);
   
 
 
     const handleFormSubmit =(e)=>{
         e.preventDefault();
+        const name = e.target.name.value;
         const email = e.target.email.value;
+        const imgURL = e.target.photo.value;
         const password = e.target.password.value;
 
         if (!/(?=.*[a-z])(?=.*[A-Z])/.test(password)) {
@@ -25,14 +28,38 @@ export default function Register() {
           return; // Stop the form submission
         }
 
-        createUser(email, password)
-        .then(()=>{
-            toast("Registraion Completed Successfully");
-        })
-        .catch(err=>{
-            console.log(err.message)
-            toast(err.message)
-        })
+        // createUser(email, password)
+        // .then(()=>{
+
+        //     updateUserProfile(name)
+        //     .then(() => {
+        //       // Profile updated!
+        //       // ...
+        //       console.log("successfully")
+        //     }).catch((error) => {
+        //       // An error occurred
+        //       // ...
+        //       console.log(error.message)
+        //     });
+
+
+        //     toast("Registraion Completed Successfully");
+        // })
+        // .catch(err=>{
+        //     console.log(err.message)
+        //     toast(err.message)
+        // })
+
+
+      createUser(email, password, name, imgURL)
+      .then(() => {
+          toast("Registraion Completed Successfully");
+      })
+      .catch((err) => {
+          toast(err.message)
+      });
+
+
     }
 
 
@@ -142,8 +169,10 @@ export default function Register() {
                 </button>
               </div>
               {/* Google Github login button  */}
-              <GoogleGithubAuth></GoogleGithubAuth>
             </form>
+             <div className="mt-5">
+                <GoogleGithubAuth></GoogleGithubAuth>
+             </div>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
               Already a member?{' '}

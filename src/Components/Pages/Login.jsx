@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthoProvider";
 import { Link } from "react-router-dom";
-import { FaGithub, FaGoogle } from "react-icons/fa6";
 import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
 
 

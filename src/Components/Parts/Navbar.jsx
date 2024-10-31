@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { AuthContext } from '../AuthoProvider';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
-  { name: 'About', href: '/about', current: false },
+  { name: 'Update Profile', href: '/updateprofile', current: true },
   { name: 'Login', href: '/login', current: false },
   { name: 'Register', href: '/register', current: false },
 ];
@@ -16,10 +17,21 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [current, setCurrent] = useState(navigation.find(item => item.current)?.name);
+  const {user, logOut} = useContext(AuthContext);
 
   function handleClick(name) {
     setCurrent(name);
   }
+
+
+    
+  const handleLogOut =()=>{
+    logOut()
+    .then(()=>console.log("Your Logged out"))
+    .catch((err)=>console.log(err.message))
+  }
+
+
 
   return (
 <>
@@ -50,7 +62,7 @@ export default function Navbar() {
                   <h2 className='text-3xl text-gray-200'><b>Luxery</b>Haven</h2>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
+                  <div className="flex items-center space-x-4">
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
@@ -65,6 +77,20 @@ export default function Navbar() {
                         {item.name}
                       </Link>
                     ))}
+
+                    {/* user prifile  */}{
+                      user &&
+                      <div data-tip={user.displayName} className='tooltip tooltip-bottom'> 
+                         <img style={{height: '50px', width: '50px'}} src={user.photoURL} />
+                      </div>
+                    }
+
+                    <div onClick={handleLogOut} className='text-white'>Logout</div>
+                    
+                    {/* <NavLink key="fasd" to='/' className='userimg text-white hover:bg-gray-700 hover:text-white rounded-lg'>
+                      <img style={{height: '50px', width: '50px'}} src="https://lh3.googleusercontent.com/a/ACg8ocJNpEWJ_dNWW7o4qILpFBQUPXNgg02YM_o9bPeof0dNHhBWOd9v=s96-c" alt="phonto img" />
+                    </NavLink> */}
+
                   </div>
                 </div>
               </div>
