@@ -6,12 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { updateProfile } from "firebase/auth";
 
 
 
 export default function Register() {
-    const {createUser, updateUserProfile} = useContext(AuthContext);
+    const {createUser} = useContext(AuthContext);
     const [passShowHide, setPassShowHide] = useState(true);
   
 
@@ -27,29 +26,6 @@ export default function Register() {
           toast("Password must contain at least one uppercase and lowercase letter");
           return; // Stop the form submission
         }
-
-        // createUser(email, password)
-        // .then(()=>{
-
-        //     updateUserProfile(name)
-        //     .then(() => {
-        //       // Profile updated!
-        //       // ...
-        //       console.log("successfully")
-        //     }).catch((error) => {
-        //       // An error occurred
-        //       // ...
-        //       console.log(error.message)
-        //     });
-
-
-        //     toast("Registraion Completed Successfully");
-        // })
-        // .catch(err=>{
-        //     console.log(err.message)
-        //     toast(err.message)
-        // })
-
 
       createUser(email, password, name, imgURL)
       .then(() => {

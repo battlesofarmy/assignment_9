@@ -1,25 +1,105 @@
 
+// export default function Home() {
+//   return (
+//     <>
+
+
+// <div className="carousel rounded-box">
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
+//       alt="Burger" />
+//   </div>
+//   <div className="carousel-item">
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+//       alt="Burger" />
+//   </div>
+// </div>
+    
+//     </>
+//   )
+// }
+
+
+
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
+
 export default function Home() {
+
+
   return (
-    <>
-      <section>
-        <div className="container">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius ex veniam repellendus. Eligendi at saepe facere, temporibus necessitatibus nostrum sed iste molestias! Animi voluptates expedita nam eos minus ea libero. Magnam, quam veniam. Voluptatibus labore voluptatum dignissimos aperiam totam ad atque veniam cum itaque vitae quas neque perspiciatis consectetur excepturi molestiae, fugit nesciunt, recusandae temporibus. At exercitationem assumenda minima necessitatibus dolorem nesciunt sunt id. Sapiente ex consectetur explicabo perspiciatis eaque obcaecati rerum deserunt aut omnis cumque. Consequuntur fuga quisquam exercitationem quidem? Iure officiis hic quaerat ex quam in similique, odio voluptatum repellat pariatur fugiat magnam, aliquam odit sapiente sed vitae.
-        </div>
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={3}
+      onSlideChange={() => console.log('slide change')}
+      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
+    >
+      <SwiperSlide>
+      <img
+      src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+      alt="Burger" />
+      </SwiperSlide>
 
-        <br /><br />
+      <SwiperSlide>
+        <img src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+        alt="Burger" />
+      </SwiperSlide>
 
-        <div className="tooltip tooltip-open tooltip-bottom" data-tip="hello">
-  <img style={{height: '50px', width: '50px'}} src="https://lh3.googleusercontent.com/a/ACg8ocJNpEWJ_dNWW7o4qILpFBQUPXNgg02YM_o9bPeof0dNHhBWOd9v=s96-c" alt="phonto img" />
+      <SwiperSlide>
+        <img src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+        alt="Burger" />
+      </SwiperSlide>
 
-</div>
+      <SwiperSlide>
+        <img src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+        alt="Burger" />
+      </SwiperSlide>
 
-<div className="tooltip tooltip-bottom" data-tip="hello">
-  <button className="btn">Bottom</button>
-</div>
-
-<br /><br />
-      </section>
-    </>
-  )
-}
+      <SwiperSlide>
+        <img src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+        alt="Burger" />
+      </SwiperSlide>
+      ...
+    </Swiper>
+  );
+};
