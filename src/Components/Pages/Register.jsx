@@ -1,25 +1,41 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthoProvider";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
+import { FaRegEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
+
+
 
 export default function Register() {
     const {createUser} = useContext(AuthContext);
+    const [passShowHide, setPassShowHide] = useState(true);
+  
+
 
     const handleFormSubmit =(e)=>{
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
 
+        if (!/(?=.*[a-z])(?=.*[A-Z])/.test(password)) {
+          toast("Password must contain at least one uppercase and lowercase letter");
+          return; // Stop the form submission
+        }
+
         createUser(email, password)
         .then(()=>{
-            console.log("HI")
+            toast("Registraion Completed Successfully");
         })
         .catch(err=>{
             console.log(err.message)
+            toast(err.message)
         })
-
-      
     }
+
+
     return (
       <>
 
@@ -45,6 +61,7 @@ export default function Register() {
                   <input
                     id="name"
                     name="name"
+                    required
                     type="text"
                     autoComplete="name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
@@ -68,6 +85,22 @@ export default function Register() {
                   />
                 </div>
               </div>
+
+
+              <div>
+                <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                  Photo URL
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="photo"
+                    name="photo"
+                    type="text"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
   
               <div>
                 <div className="flex items-center justify-between">
@@ -75,15 +108,28 @@ export default function Register() {
                     Password
                   </label>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 flex items-center">
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={passShowHide ? "password" : "text"}
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                   />
+                  <div style={{marginLeft: "-30px", cursor: "pointer"}}>
+                  {
+                    passShowHide ? 
+                    <div onClick={()=>setPassShowHide(!passShowHide)}>
+                      <FaRegEye className="text-xl"></FaRegEye>
+                    </div>
+                    :
+                    <div onClick={()=>setPassShowHide(!passShowHide)}>
+                      <FaEyeSlash className="text-xl"></FaEyeSlash >
+                    </div>
+                  }
+                  </div>
+                  
                 </div>
               </div>
   
@@ -95,6 +141,8 @@ export default function Register() {
                   Sign in
                 </button>
               </div>
+              {/* Google Github login button  */}
+              <GoogleGithubAuth></GoogleGithubAuth>
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
@@ -105,6 +153,9 @@ export default function Register() {
             </p>
           </div>
         </div>
+
+
+        <ToastContainer />
       </>
     )
   }

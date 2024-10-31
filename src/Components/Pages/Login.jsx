@@ -1,6 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthoProvider";
 import { Link } from "react-router-dom";
+import { FaGithub, FaGoogle } from "react-icons/fa6";
+import GoogleGithubAuth from "../Parts/GoogleGithubAuth";
+
+
+
 
 export default function Login() {
   const {checkLogin} = useContext(AuthContext);
@@ -18,6 +23,7 @@ export default function Login() {
           console.log(err.message);
         })
     }
+
     return (
       <>
 
@@ -82,6 +88,10 @@ export default function Login() {
                   Sign in
                 </button>
               </div>
+
+              {/* Google Github login button  */}
+              <GoogleGithubAuth></GoogleGithubAuth>
+
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">

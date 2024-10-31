@@ -1,14 +1,26 @@
 import { createContext, useState } from "react";
 import PropTypes  from 'prop-types'
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 import auth from "./FireBase.Config";
+
 
 export const AuthContext = createContext(null);
 
 
 export default function AuthoProvider({children}) {
     const [user, setUser] = useState(null);
-    
+
+
+    const googleProvidar = new GoogleAuthProvider();
+    const githubProvidar = new GithubAuthProvider();
+
+    const googleRegister = ()=>{
+       return signInWithPopup(auth, googleProvidar)
+    }
+    const githubRegister =()=>{
+        return signInWithPopup(auth, githubProvidar)
+    }
+  
 
     const createUser=(email, password)=>{
        return createUserWithEmailAndPassword(auth, email, password)
@@ -19,7 +31,7 @@ export default function AuthoProvider({children}) {
     }
     
 
-    const authInfo = {user, createUser, checkLogin};
+    const authInfo = {user, createUser, checkLogin, googleRegister, githubRegister};
     
   return (
     <AuthContext.Provider value={authInfo}>
